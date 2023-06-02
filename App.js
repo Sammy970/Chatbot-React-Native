@@ -5,25 +5,27 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 export default function App() {
 
   const [inputMessage, setInputMessage] = useState('');
+  const [outputMessage, setOutputMessage] = useState('Results to be shown here!');
 
   const handleButtonClick = () => {
 
-    const OPENAI_key = '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';
+    const OPENAI_key = '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';
 
     console.log(inputMessage)
 
-    fetch('https://api.openai.com/v1/completions', {
+    fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENAI_key}`
       },
       body: JSON.stringify({
-        "prompt": inputMessage,
-        "model": "text-davinci-003",
+        "messages": [{ "role": "user", "content": inputMessage }],
+        "model": "gpt-3.5-turbo",
       })
     }).then((response) => response.json()).then((data) => {
-      console.log(data);
+      console.log(data.choices[0].message.content);
+      setOutputMessage(data.choices[0].message.content.trim());
     })
 
   }
@@ -34,7 +36,7 @@ export default function App() {
     <View style={styles.container}>
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text>Results to be shown here!</Text>
+        <Text>{outputMessage}</Text>
       </View>
 
       <View style={{ flexDirection: 'row' }}>
