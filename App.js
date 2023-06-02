@@ -7,8 +7,28 @@ export default function App() {
   const [inputMessage, setInputMessage] = useState('');
 
   const handleButtonClick = () => {
+
+    const OPENAI_key = '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';
+
     console.log(inputMessage)
+
+    fetch('https://api.openai.com/v1/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_key}`
+      },
+      body: JSON.stringify({
+        "prompt": inputMessage,
+        "model": "text-davinci-003",
+      })
+    }).then((response) => response.json()).then((data) => {
+      console.log(data);
+    })
+
   }
+
+  // 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
 
   return (
     <View style={styles.container}>
