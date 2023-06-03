@@ -33,7 +33,7 @@ export default function App() {
       _id: Math.random().toString(36).substring(7),
       text: inputMessage,
       createdAt: new Date(),
-      user: { _id: 1 },
+      user: { _id: 1, name: "Sam Jain" },
     }
 
     setMessages((previousMessages) =>
@@ -51,8 +51,19 @@ export default function App() {
         "model": "gpt-3.5-turbo",
       })
     }).then((response) => response.json()).then((data) => {
-      console.log(data.choices[0].message.content);
+      // console.log(data.choices[0].message.content);
       setOutputMessage(data.choices[0].message.content.trim());
+
+      const message = {
+        _id: Math.random().toString(36).substring(7),
+        text: data.choices[0].message.content.trim(),
+        createdAt: new Date(),
+        user: { _id: 2, name: "Open AI" },
+      }
+
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, [message])
+      )
     })
 
   }
@@ -83,8 +94,12 @@ export default function App() {
     <View style={{ flex: 1 }}>
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text>{outputMessage}</Text>
-        <GiftedChat messages={messages} renderInputToolbar={() => { }} user={{ _id: 1 }} />
+        <GiftedChat
+          messages={messages}
+          renderInputToolbar={() => { }}
+          user={{ _id: 1 }}
+          minInputToolbarHeight={0}
+        />
       </View>
 
       <View style={{ flexDirection: 'row' }}>
