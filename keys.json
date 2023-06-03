@@ -1,0 +1,21 @@
+{
+    "OPENAI_CHAT": {
+        "api_url": "https://api.openai.com/v1/chat/completions",
+        "api_key": "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"
+    },
+
+    "OPENAI_IMAGE": {
+        "api_url": "https://api.openai.com/v1/images/generations",
+        "api_key": "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"
+    },
+
+    "PAWAN_CHAT": {
+        "api_url": "https://api.pawan.krd/v1/chat/completions",
+        "api_key": "pk-sJmrYRxYndPwShsnDXCSLUTeyqujpLDcbEpNKqVZWprizdtx"
+    },
+
+    "PAWAN_IMAGE": {
+        "api_url": "https://api.pawan.krd/v1/images/generations",
+        "api_key": "pk-sJmrYRxYndPwShsnDXCSLUTeyqujpLDcbEpNKqVZWprizdtx"
+    }
+}
