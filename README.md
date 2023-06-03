@@ -3,13 +3,18 @@ A simple chatbot created using React Native for talking with ChatGPT or PawanOsm
 
 # Features
 - Talk with ChatGPT / PawanOsmans ChatGPT
+- You can add your own API as well
+- Select ChatGPT or Pawan ChatGPT from the settings menu
 - Generate Images (for that the text input should start from 'generate image .......')
 - Get info about credits remaining (for Pawan Osman API - use 'Get Info') 
 - Clean UI
 - All responses will have text to speech 
 
+# To be added soon
+- BARD API soon
+
 # Test on Android:
-[Click here to download APK](https://expo.dev/artifacts/eas/jPx3HnxiLYomVeiDme59Mq.apk)
+[Click here to download APK](https://expo.dev/artifacts/eas/6FpG95TWNaS12o5E9Xdha8.apk)
 
 # How to convert this into standalone apk :
 https://dev.to/chinmaymhatre/how-to-generate-apk-using-react-native-expo-kae
