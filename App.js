@@ -5,21 +5,18 @@ import { MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-ic
 import { GiftedChat } from 'react-native-gifted-chat';
 import * as Speech from 'expo-speech';
 
-// Importing Keys
-import { OPENAI_CHAT, OPENAI_IMAGE, PAWAN_CHAT, PAWAN_IMAGE } from './keys.json';
-
 // Importing Components
 import ChatbotSelector from './component/ChatbotSelector';
 
 export default function App() {
 
   // Chat GPT
-  const OPENAI_url = OPENAI_CHAT.api_url;
-  const pawanOpenAI_url = PAWAN_CHAT.api_url;
+  const OPENAI_url = 'https://api.openai.com/v1/chat/completions';
+  const pawanOpenAI_url = 'https://api.pawan.krd/v1/chat/completions';
 
   // Dall E
-  const OPENAI_DALLE_URL = OPENAI_IMAGE.api_url;
-  const pawanOpenAI_DALLE_URL = PAWAN_IMAGE.api_url;
+  const OPENAI_DALLE_URL = 'https://api.openai.com/v1/images/generations';
+  const pawanOpenAI_DALLE_URL = 'https://api.pawan.krd/v1/images/generations';
 
   // Local States
   const [inputMessage, setInputMessage] = useState('');
@@ -39,7 +36,7 @@ export default function App() {
       return;
     }
 
-    console.log(inputMessage)
+    // console.log(inputMessage)
 
     if (inputMessage.toLocaleLowerCase().startsWith("generate image")) {
       generateImages();
@@ -247,7 +244,7 @@ export default function App() {
                 }
               }}
             >
-              <View style={{marginTop: 40, backgroundColor: 'green', padding: 15, borderRadius: 13 }}>
+              <View style={{ marginTop: 40, backgroundColor: 'green', padding: 15, borderRadius: 13 }}>
                 <Text style={{ color: 'white', fontSize: 19 }}>Submit</Text>
               </View>
             </TouchableOpacity>
