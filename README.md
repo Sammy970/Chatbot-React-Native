@@ -7,6 +7,9 @@ A simple chatbot created using React Native for talking with ChatGPT or PawanOsm
 - Clean UI
 - All responses will have text to speech 
 
+# How to convert this into standalone apk :
+https://dev.to/chinmaymhatre/how-to-generate-apk-using-react-native-expo-kae
+
 # Screenshots
 
 <img src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81pbPoIi8RzUkEYSsaS6wJEj3K-f38rGg9HF8D14zJgOGLUaMHHITopT1DmQ4o1DqQrfsyXxkr-jbnyPf_SxTEv6aRHa=w1920-h902" 
