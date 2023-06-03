@@ -26,6 +26,15 @@ export default function App() {
   const [messages, setMessages] = useState([]);
 
   const handleButtonClick = () => {
+    console.log(inputMessage)
+    if (inputMessage.toLocaleLowerCase().startsWith("generate image")) {
+      generateImages();
+    } else {
+      generateText();
+    }
+  }
+
+  const generateText = () => {
 
     console.log(inputMessage)
 
@@ -134,7 +143,7 @@ export default function App() {
           <TextInput placeholder='Enter your Question' onChangeText={setInputMessage} />
         </View>
 
-        <TouchableOpacity onPress={generateImages}>
+        <TouchableOpacity onPress={handleButtonClick}>
           <View style={{
             backgroundColor: 'green', padding: 5, marginRight: 10, marginBottom: 20,
             borderRadius: 9999, width: 60, height: 60,
