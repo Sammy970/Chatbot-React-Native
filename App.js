@@ -26,10 +26,14 @@ export default function App() {
   const [outputMessage, setOutputMessage] = useState('Results to be shown here!');
   const [messages, setMessages] = useState([]);
 
+  // const [pawanAPI, setPawanAPI] = useState('');
+
   const handleButtonClick = () => {
     console.log(inputMessage)
     if (inputMessage.toLocaleLowerCase().startsWith("generate image")) {
       generateImages();
+    } else if (inputMessage.toLocaleLowerCase().startsWith("get info")) {
+      getCreditInfo();
     } else {
       generateText();
     }
@@ -123,6 +127,40 @@ export default function App() {
         GiftedChat.append(previousMessages, [message])
       )
 
+    })
+  }
+
+  const getCreditInfo = () => {
+
+    const message = {
+      _id: Math.random().toString(36).substring(7),
+      text: inputMessage,
+      createdAt: new Date(),
+      user: { _id: 1, name: "Sam Jain" },
+    }
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, [message])
+    )
+
+    fetch('https://api.pawan.krd/info', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${pawanOpenAI_key}`
+      }
+    }).then((response) => response.json()).then((data) => {
+      // console.log(data);
+
+      const message = {
+        _id: Math.random().toString(36).substring(7),
+        text: `Name: ${data.info.name} \n\nRemaining Credits: ${data.info.credit}`,
+        createdAt: new Date(),
+        user: { _id: 3, name: "Pawan Osman API" },
+      }
+
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, [message])
+      )
     })
   }
 
