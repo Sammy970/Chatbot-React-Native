@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { OPENAI_CHAT, OPENAI_IMAGE, PAWAN_CHAT, PAWAN_IMAGE } from './keys.json';
 
@@ -72,13 +73,21 @@ export default function App() {
 
       <View style={{ flexDirection: 'row' }}>
 
-        <View style={{ flex: 1, marginLeft: 10, marginBottom: 20 }}>
+        <View style={{
+          flex: 1, marginLeft: 10, marginBottom: 20, backgroundColor: 'white', borderRadius: 10, borderColor: 'grey', borderWidth: 1,
+          height: 60, marginLeft: 10, marginRight: 10,
+          justifyContent: 'center', paddingLeft: 14, paddingRight: 14,
+        }}>
           <TextInput placeholder='Enter your Question' onChangeText={setInputMessage} />
         </View>
 
         <TouchableOpacity onPress={handleButtonClick}>
-          <View style={{ backgroundColor: 'red', padding: 5, marginRight: 10, marginBottom: 20 }}>
-            <Text>Send</Text>
+          <View style={{
+            backgroundColor: 'green', padding: 5, marginRight: 10, marginBottom: 20,
+            borderRadius: 9999, width: 60, height: 60,
+            justifyContent: 'center',
+          }}>
+            <MaterialIcons name="send" size={30} color={'white'} style={{ marginLeft: 10 }} />
           </View>
         </TouchableOpacity>
       </View>
