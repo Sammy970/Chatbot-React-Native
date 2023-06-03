@@ -2,7 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { GiftedChat } from 'react-native-gifted-chat';
 
+// Importing Keys
 import { OPENAI_CHAT, OPENAI_IMAGE, PAWAN_CHAT, PAWAN_IMAGE } from './keys.json';
 
 export default function App() {
@@ -21,9 +23,22 @@ export default function App() {
   const [inputMessage, setInputMessage] = useState('');
   const [outputMessage, setOutputMessage] = useState('Results to be shown here!');
 
+  const [messages, setMessages] = useState([]);
+
   const handleButtonClick = () => {
 
     console.log(inputMessage)
+
+    const message = {
+      _id: Math.random().toString(36).substring(7),
+      text: inputMessage,
+      createdAt: new Date(),
+      user: { _id: 1 },
+    }
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, [message])
+    )
 
     fetch(pawanOpenAI_url, {
       method: 'POST',
@@ -65,10 +80,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text>{outputMessage}</Text>
+        <GiftedChat messages={messages} renderInputToolbar={() => { }} user={{ _id: 1 }} />
       </View>
 
       <View style={{ flexDirection: 'row' }}>
