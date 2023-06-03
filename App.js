@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { GiftedChat } from 'react-native-gifted-chat';
+import * as Speech from 'expo-speech';
 
 // Importing Keys
 import { OPENAI_CHAT, OPENAI_IMAGE, PAWAN_CHAT, PAWAN_IMAGE } from './keys.json';
@@ -73,8 +74,10 @@ export default function App() {
       setMessages((previousMessages) =>
         GiftedChat.append(previousMessages, [message])
       )
-    })
 
+      options = {};
+      Speech.speak(data.choices[0].message.content.trim(), options);
+    })
   }
 
   const generateImages = () => {
