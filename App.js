@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, Image, ActivityIndicator } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, Image, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { MaterialIcons, MaterialCommunityIcons, Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import { GiftedChat } from 'react-native-gifted-chat';
 import * as Speech from 'expo-speech';
 
 // Importing Components
 import ChatbotSelector from './component/ChatbotSelector';
+import SpeechSelector from './component/SpeechSelector';
 
 const renderAvatar = (props) => {
   return (
@@ -36,8 +37,10 @@ export default function App() {
   const [apiKeyEntered, setApiKeyEntered] = useState(false);
 
   const [selectedChatbot, setSelectedChatbot] = useState('BARD');
-
   const [loading, setLoading] = useState(false);
+  const [speechOption, setSpeechOption] = useState('off');
+
+  const [emptyInput, setEmptyInput] = useState(true);
 
   const handleButtonClick = () => {
 
@@ -54,6 +57,8 @@ export default function App() {
       generateImages();
     } else if (inputMessage.toLocaleLowerCase().startsWith("get info")) {
       getCreditInfo();
+    } else if (inputMessage.toLocaleLowerCase().startsWith('help command')) {
+      commandsHelp();
     } else {
       generateText();
     }
@@ -92,6 +97,7 @@ export default function App() {
       .then((data) => {
         // console.log(data.choices[0].message.content);
         setInputMessage("");
+        setEmptyInput(true);
         setOutputMessage(data.choices[0].message.content.trim());
 
         const message = {
@@ -107,7 +113,8 @@ export default function App() {
           GiftedChat.append(previousMessages, [message])
         )
         options = {};
-        Speech.speak(data.choices[0].message.content.trim(), options);
+        speechOption === 'on' && (Speech.speak(data.choices[0].message.content.trim(), options))
+
       })
       .catch((error) => {
         console.log(error);
@@ -150,11 +157,12 @@ export default function App() {
       .then((data) => {
         // console.log(data.data[0].url);
         setInputMessage("");
+        setEmptyInput(true);
         setOutputMessage(data.data[0].url);
 
         const message = {
           _id: Math.random().toString(36).substring(7),
-          text: "Image",
+          text: `URL: ${data.data[0].url}`,
           image: data.data[0].url,
           createdAt: new Date(),
           user: { _id: 2, name: "Open AI" },
@@ -223,7 +231,38 @@ export default function App() {
       })
   }
 
+  const commandsHelp = () => {
+
+    const message = {
+      _id: Math.random().toString(36).substring(7),
+      text: inputMessage,
+      createdAt: new Date(),
+      user: { _id: 1, name: "Sam Jain" },
+    }
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, [message])
+    )
+
+    let helpMessage = '------------Commands----------- \n\nFor P ChatGPT: \n\n -- "Get info" : Provides info about the credits remaining. \n ---------------------------------------------- \n\nFor all: \n\n -- "Generate image ...." : Generates images that you want \n -- "help command" : To get list of commands. \n\n ----------------------------------------------';
+
+    const messageResponse = {
+      _id: Math.random().toString(36).substring(7),
+      text: helpMessage,
+      createdAt: new Date(),
+      user: { _id: 2 },
+    }
+
+    setLoading(false);
+    setInputMessage("");
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, [messageResponse])
+    )
+  }
+
   return (
+
     <ImageBackground
       source={require('./assets/bg.jpg')}
       resizeMode='cover'
@@ -234,6 +273,14 @@ export default function App() {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
             <View style={{ marginBottom: 10 }}>
+
+              <Text style={{ marginBottom: 5, textAlign: 'center', fontSize: 20, backgroundColor: '#222222', color: 'white' }}>
+                <Text style={{ fontWeight: 'bold', }}> Tip: </Text>
+                <Text>Try using </Text>
+                <Text style={{ fontWeight: 'bold', }}>
+                  "help command"
+                </Text>
+              </Text>
 
               <MaterialCommunityIcons name="api" size={60} color="black" />
               <TextInput
@@ -252,12 +299,18 @@ export default function App() {
                 }}
               />
 
-              <Ionicons name="options-outline" size={60} color="black" />
-              <View style={{ marginLeft: -20, marginRight: -20 }}>
-                <ChatbotSelector selectedChatbot={selectedChatbot} onSelectChatbot={setSelectedChatbot} />
+              <View style={{ marginBottom: 45 }}>
+                <Ionicons name="options-outline" size={60} color="black" />
+                <View style={{ marginLeft: -20, marginRight: -20 }}>
+                  <ChatbotSelector selectedChatbot={selectedChatbot} onSelectChatbot={setSelectedChatbot} />
+                </View>
               </View>
 
+              <SimpleLineIcons name="speech" size={50} style={{ marginLeft: 8, marginBottom: 6 }} color="black" />
+              <SpeechSelector speechOption={speechOption} setSpeechOption={setSpeechOption} />
+
             </View>
+
             <TouchableOpacity
               onPress={() => {
                 if (apiKey === '') {
@@ -284,12 +337,10 @@ export default function App() {
               />
             </View>
 
-            {loading ? (
+            {loading && (
               <View style={{ justifyContent: 'center', marginBottom: 20 }}>
                 <ActivityIndicator size="large" color="#222222" />
               </View>
-            ) : (
-              <View></View>
             )}
 
             <View style={{ flexDirection: 'row' }}>
@@ -301,18 +352,25 @@ export default function App() {
               }}>
                 <TextInput
                   placeholder='Enter your Question'
-                  onChangeText={setInputMessage}
+                  onChangeText={(text) => {
+                    setInputMessage(text);
+                    setEmptyInput(text.trim() === '');
+                  }}
                   value={inputMessage}
                   multiline={true}
                 />
               </View>
 
-              <TouchableOpacity onPress={handleButtonClick}>
+              <TouchableOpacity
+                onPress={handleButtonClick}
+                disabled={emptyInput}
+              >
                 <View style={{
                   backgroundColor: 'green', padding: 5, marginRight: 10, marginBottom: 20,
                   borderRadius: 9999, width: 60, height: 60,
                   justifyContent: 'center', borderColor: 'black', borderWidth: 2,
-                }}>
+                }}
+                >
                   <MaterialIcons name="send" size={30} color={'white'} style={{ marginLeft: 10 }} />
                 </View>
               </TouchableOpacity>
@@ -335,7 +393,7 @@ export default function App() {
         )}
         <StatusBar style="auto" />
       </View>
-    </ImageBackground>
+    </ImageBackground >
   );
 
 }
