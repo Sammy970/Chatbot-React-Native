@@ -5,6 +5,8 @@ A simple chatbot created using React Native for talking with ChatGPT or PawanOsm
 - Talk with ChatGPT / PawanOsmans ChatGPT
 - You can add your own API as well
 - Select ChatGPT or Pawan ChatGPT from the settings menu
+- Select TextToSpeech ON/OFF from teh settings menu
+- Added Help Commands for new users
 - Generate Images (for that the text input should start from 'generate image .......')
 - Get info about credits remaining (for Pawan Osman API - use 'Get Info') 
 - Clean UI
