@@ -13,9 +13,6 @@ A simple chatbot created using React Native for talking with ChatGPT or PawanOsm
 # To be added soon
 - BARD API soon
 
-# Test on Android:
-[Click here to download APK](https://expo.dev/artifacts/eas/6FpG95TWNaS12o5E9Xdha8.apk)
-
 # How to convert this into standalone apk :
 https://dev.to/chinmaymhatre/how-to-generate-apk-using-react-native-expo-kae
 
