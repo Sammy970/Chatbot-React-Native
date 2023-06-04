@@ -3,7 +3,7 @@
     "name": "ChatAPI",
     "slug": "ChatGPTRN",
     "version": "1.0.3",
-    "orientation": "auto",
+    "orientation": "portrait",
     "icon": "./assets/icon2.png",
     "userInterfaceStyle": "light",
     "splash": {
