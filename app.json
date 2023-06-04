@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ChatAPI",
-    "slug": "ChatAPI",
+    "slug": "ChatGPTRN",
     "version": "1.0.3",
     "orientation": "auto",
     "icon": "./assets/icon2.png",
