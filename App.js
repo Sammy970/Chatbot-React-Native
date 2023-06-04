@@ -1,12 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { GiftedChat } from 'react-native-gifted-chat';
 import * as Speech from 'expo-speech';
 
 // Importing Components
 import ChatbotSelector from './component/ChatbotSelector';
+
+const renderAvatar = (props) => {
+  return (
+    <Image
+      source={require('./assets/icon2.png')}
+      style={{ width: 40, height: 40, borderRadius: 20 }}
+    />
+  );
+};
 
 export default function App() {
 
@@ -28,6 +37,7 @@ export default function App() {
 
   const [selectedChatbot, setSelectedChatbot] = useState('BARD');
 
+  const [loading, setLoading] = useState(false);
 
   const handleButtonClick = () => {
 
@@ -35,6 +45,8 @@ export default function App() {
       alert("Enter API Key");
       return;
     }
+
+    setLoading(true);
 
     // console.log(inputMessage)
 
@@ -89,6 +101,8 @@ export default function App() {
           user: { _id: 2, name: "Open AI" },
         }
 
+        setLoading(false);
+
         setMessages((previousMessages) =>
           GiftedChat.append(previousMessages, [message])
         )
@@ -97,6 +111,7 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         alert("Please insert correct API Key");
       })
   }
@@ -144,12 +159,16 @@ export default function App() {
           createdAt: new Date(),
           user: { _id: 2, name: "Open AI" },
         }
+
+        setLoading(false);
+
         setMessages((previousMessages) =>
           GiftedChat.append(previousMessages, [message])
         )
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         alert("Please insert correct API Key");
       })
   }
@@ -179,6 +198,7 @@ export default function App() {
       // console.log(data);
 
       if (data.error) {
+        setLoading(false);
         alert("Invalid API Key")
       }
       else {
@@ -189,6 +209,8 @@ export default function App() {
           user: { _id: 3, name: "Pawan Osman API" },
         }
 
+        setLoading(false);
+
         setMessages((previousMessages) =>
           GiftedChat.append(previousMessages, [message])
         )
@@ -196,6 +218,7 @@ export default function App() {
     })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         alert("This command is specific for P ChatGPT");
       })
   }
@@ -257,8 +280,18 @@ export default function App() {
                 renderInputToolbar={() => { }}
                 user={{ _id: 1 }}
                 minInputToolbarHeight={0}
+                renderAvatar={renderAvatar}
               />
             </View>
+
+            {loading ? (
+              <View style={{ justifyContent: 'center', marginBottom: 20 }}>
+                <ActivityIndicator size="large" color="#222222" />
+              </View>
+            ) : (
+              <View></View>
+            )}
+
             <View style={{ flexDirection: 'row' }}>
 
               <View style={{

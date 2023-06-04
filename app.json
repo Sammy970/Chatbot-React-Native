@@ -2,14 +2,14 @@
   "expo": {
     "name": "ChatGPTRN",
     "slug": "ChatGPTRN",
-    "version": "1.0.0",
-    "orientation": "portrait",
+    "version": "1.0.3",
+    "orientation": "auto",
     "icon": "./assets/icon2.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash1.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#A7C7E7"
     },
     "assetBundlePatterns": [
       "**/*"
