@@ -675,6 +675,31 @@ export default function App() {
               );
             }
           })}
+
+          {currentMessage.audio && (
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 10,
+                marginBottom: 10,
+                alignItems: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => handleAudioPress(currentMessage)}
+              >
+                <Ionicons name="play-circle-outline" size={35} color="black" />
+              </TouchableOpacity>
+              <Ionicons
+                name="musical-note"
+                size={30}
+                color="black"
+                style={styles.audioIcon}
+              />
+              <Text>{currentMessage.audioStat}</Text>
+            </View>
+          )}
+
         </View >
       </View>
     );
