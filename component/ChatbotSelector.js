@@ -7,22 +7,6 @@ export default function ChatbotSelector({ selectedChatbot, onSelectChatbot }) {
             <TouchableOpacity
                 style={[
                     styles.button,
-                    selectedChatbot === 'BARD' && styles.selectedButton,
-                ]}
-                onPress={() => onSelectChatbot('BARD')}
-            >
-                <Text
-                    style={[
-                        styles.buttonText,
-                        selectedChatbot === 'BARD' && styles.selectedButtonText,
-                    ]}
-                >
-                    BARD AI
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={[
-                    styles.button,
                     selectedChatbot === 'ChatGPT' && styles.selectedButton,
                 ]}
                 onPress={() => onSelectChatbot('ChatGPT')}
@@ -49,7 +33,23 @@ export default function ChatbotSelector({ selectedChatbot, onSelectChatbot }) {
                         selectedChatbot === 'PawanChatGPT' && styles.selectedButtonText,
                     ]}
                 >
-                    P ChatGPT
+                    Pawan GPT
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={[
+                    styles.button,
+                    selectedChatbot === 'ChimeraGPT' && styles.selectedButton,
+                ]}
+                onPress={() => onSelectChatbot('ChimeraGPT')}
+            >
+                <Text
+                    style={[
+                        styles.buttonText,
+                        selectedChatbot === 'ChimeraGPT' && styles.selectedButtonText,
+                    ]}
+                >
+                    ChimeraGPT
                 </Text>
             </TouchableOpacity>
         </View>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     button: {
         flex: 1,

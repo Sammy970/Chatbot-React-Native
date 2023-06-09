@@ -1,0 +1,11 @@
+{
+  "OPENAI_url": "https://api.openai.com/v1/chat/completions",
+  "OPENAI_DALLE_URL": "https://api.openai.com/v1/images/generations",
+  "pawanOpenAI_url": "https://api.pawan.krd/v1/chat/completions",
+  "pawanOpenAI_DALLE_URL": "https://api.pawan.krd/v1/images/generations",
+  "pawanOpenAI_TEXT_url": "https://api.pawan.krd/v1/completions",
+  "pawanOpenAI_ResetIP_url": "https://api.pawan.krd/resetip",
+  "ChimeraGPT_url": "https://chimeragpt.adventblocks.cc/v1/chat/completions/",
+  "ChimeraGPT_IMAGE_url": "https://chimeragpt.adventblocks.cc/v1/images/generations",
+  "ChimeraGPT_Completion_url": "https://chimeragpt.adventblocks.cc/v1/completions"
+}
