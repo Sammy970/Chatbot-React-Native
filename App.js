@@ -110,6 +110,11 @@ export default function App() {
   const [isModalImageVisible, setIsModalImageVisible] = useState(false);
   const [modalImageUri, setModalImageUri] = useState(null);
 
+  // Image error state for Kevin Hart mode with Image model
+  const [imageError, setImageError] = useState(false);
+
+  // For Sending message one at a time
+  const isDisabled = emptyInput || loading;
 
   // Functions Start
 
@@ -293,6 +298,13 @@ export default function App() {
   };
 
   const kevinResponse = () => {
+
+    if (typeSelected === '3') {
+      alert("Please don't use an Image Model with Kevin Mode ON. \n\nUse PawanOsman or ChimeraGPT Chat Model")
+      setLoading(false);
+      return;
+    }
+
     const message = {
       _id: Math.random().toString(36).substring(7),
       text: inputMessage,
@@ -617,7 +629,7 @@ export default function App() {
       >
         {!isUserMessage && renderAvatar()}
 
-        <Modal visible={isModalImageVisible} >
+        <Modal visible={isModalImageVisible} animationType="fade" transparent={true} >
           <View style={styles.modalContainer}>
 
             <Image source={{ uri: modalImageUri }} style={styles.modalImage} />
@@ -704,8 +716,8 @@ export default function App() {
       </View>
     );
   };
-  // Functions End
 
+  // Functions End
 
   // Remaining Code
   return (
@@ -868,7 +880,7 @@ export default function App() {
 
               <TouchableOpacity
                 onPress={handleButtonClick}
-                disabled={emptyInput}
+                disabled={isDisabled}
               >
                 <View
                   style={styles.sendIconContainer}
@@ -902,7 +914,7 @@ export default function App() {
           </>
         )}
       </View>
-    </ImageBackground>
+    </ImageBackground >
   );
 }
 

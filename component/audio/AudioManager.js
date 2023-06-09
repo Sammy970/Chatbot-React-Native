@@ -1,12 +1,12 @@
+const maxTries = 3;
+let retryCount = 0;
+let local_job_url = '';
+let local_audio_link = '';
 import { StyleSheet, Text, View } from 'react-native'
 import { useState, useEffect } from 'react'
 import { Audio } from 'expo-av';
 
 // Variable
-const maxTries = 3;
-let retryCount = 0;
-let local_job_url = '';
-let local_audio_link = '';
 
 
 const AudioManager = () => {
